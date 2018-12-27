@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+
+	<class name="Menu" table="t_menu">
+		<id name="menuId">
+            <generator class="native"/>
+		</id>
+		<property name="name"/>
+		<property name="href"/>
+		<property name="isShow"/>
+		<property name="delFlag"/>
+		<property name="permission"/>
+
+		<!-- users属性，本类与User:多对多 -->
+		<set name="users" table="t_user_menu" lazy="false">
+			<key column="menuId"></key>
+			<many-to-many class="User" column="userId"></many-to-many>
+		</set>
+		
+		<!-- parent属性，本类与Menu（上级）的多对一 -->
+		<many-to-one name="parent" class="Menu" column="parentId"></many-to-one>
+
+		<!-- children属性，本类与Menu（下级）的一对多 -->
+		<set name="children" cascade="delete" order-by="menuId">
+			<key column="parentId"></key>
+			<one-to-many class="Menu" />
+		</set>
+		
+	</class>
+
+</hibernate-mapping>
+<!-- 	private Long menuId;//
+	private Set<User> users=new HashSet<User>();
+	private Menu parent;//父级菜单
+	private Set<Menu> children=new HashSet<Menu>();//子菜单
+	private String name;//名称
+	private String href;//链接
+	private Boolean isShow;//是否在菜单中显示
+	private Boolean delFlag;//删除标记
+	private String permission;//权限标识 -->

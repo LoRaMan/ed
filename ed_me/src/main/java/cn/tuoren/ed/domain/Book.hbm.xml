@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+	<class name="Book" table="t_book">
+		<id name="bookId">
+            <generator class="native"/>
+		</id>
+		<property name="bookName"/>
+		<property name="bookAuthor" />
+		<property name="bookPress"/>
+		<property name="bookCategory"/>
+		<property name="warehousingDate"/>
+		<property name="ISBN_Number"/>
+		<property name="bookPrice"/>
+		<property name="operator"/>
+		<property name="version"/>
+		<property name="bookShelf"/>
+		<property name="synopsis"/>	
+		<property name="amount"/>
+		<!-- 与BorrowRecord类：1对多 -->
+		<set name="records" lazy="false">
+	   		<key column="bookId"></key>
+	   		<one-to-many class="BorrowRecord"/>
+ 		</set>
+	</class>
+</hibernate-mapping>
+<!-- private Long bookId;//索引
+	private Set<BorrowRecord> records=new HashSet<BorrowRecord>();//借出记录
+	private String bookName;//书名
+	private String bookAuthor;//作者
+	private String bookPress;//出版社
+	private String bookCategory;//类别
+	private Date warehousingDate;//入库时间
+	private String ISBN_Number;//图书编号
+	private String bookPrice;//单价
+	private String operator;//操作人
+	private String version;//版本
+	private String bookShelf;//所在书架
+	private String synopsis;//简介
+	private int amount;//数量 -->

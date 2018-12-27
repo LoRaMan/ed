@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    
+    <!-- 自动扫描与装配bean（ok） -->
+	<context:component-scan base-package="cn.tuoren"></context:component-scan>
+    <!--引入jdbc属性配置文件（ok）-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    
+    <!-- ======================== 配置连接池（ok） ============================== -->
+    <!-- 配置C3P0连接池: -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!-- ======================= Hibernate的相关信息 ==================== -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!-- 数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- ################Hibernate的属性配置及映射文件############### -->
+        <!-- 方式一： 导入hibernate.cfg.xml文件 -->
+        <!-- <property name="configLocation" value="classpath:hibernate.cfg.xml"></property> -->
+        <!-- 方式二： -->
+        <property name="hibernateProperties">
+            <props>
+                <!-- 设置Mysql数据库方言 -->
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2008Dialect</prop>
+                <!-- 是否在控制台显示sql -->
+                <prop key="hibernate.show_sql">true</prop>
+                <!-- 是否格式化sql，优化显示 -->
+                <prop key="hibernate.format_sql">true</prop>
+                <!-- 是否自动提交事务  -->
+                <prop key="hibernate.connection.autocommit">false</prop>
+                <!-- 设置自动创建|更新|验证数据库表结构 -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext</prop>
+            </props>
+        </property>
+        <!-- （在此新增映射文件）spring配置.hbm.xml映射文件 -->
+        <property name="mappingResources">
+			<list>
+			    <!-- <value>cn/tuoren/test/UserTest.hbm.xml</value> -->
+			    <value>cn/tuoren/ed/domain/Book.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Department.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Approve.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Audit.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Authentication.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/BorrowRecord.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/File.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/FileCategory.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Menu.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Message.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Project.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/Role.hbm.xml</value>
+			    <value>cn/tuoren/ed/domain/User.hbm.xml</value>
+			</list>
+    	</property>
+    </bean>
+    
+    <!-- ======================= 事务管理 =============================== -->
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <!-- 开启注解事务 -->
+    <!-- <tx:annotation-driven/>告诉Spring检查上下文中所有bean并检查使用到@Transactional注解的bean -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

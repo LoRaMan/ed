@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+
+	<class name="Message" table="t_message">
+		<id name="messageId">
+            <generator class="native"/>
+		</id>
+		<property name="msgContent"/>
+		<property name="msgType"/>
+		<property name="msgFromUrl"/>
+		<property name="receivedTime"/>
+		<property name="isRead"/>
+
+		<!-- users属性，本类与User:多对多 -->
+		<set name="users" table="t_user_message" lazy="false">
+			<key column="messageId"></key>
+			<many-to-many class="User" column="userId"></many-to-many>
+		</set>
+		
+	</class>
+
+</hibernate-mapping>
+<!-- 	private Long messageId;//索引
+	private Set<User> users=new HashSet<User>();
+	private String msgContent;//消息文本
+	private String msgType;//消息类型
+	private String msgFromUrl;//消息来源，提供到达处理目标的url链接
+	private Date receivedTime;//收到时间
+	private Boolean isRead;//是否已读 -->

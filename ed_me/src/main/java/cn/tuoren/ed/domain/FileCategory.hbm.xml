@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+
+	<class name="FileCategory" table="t_fileCategory">
+		<id name="categoryId">
+            <generator class="native"/>
+		</id>
+		<property name="categoryName"/>
+		<property name="remarks"/>
+		<!-- files属性，本类与file的关系：1对多 -->
+		<set name="files" lazy="false">   <!-- table="t_Relative表" -->
+	   		<key column="categoryId"></key>
+	   		<one-to-many class="EdFile"></one-to-many>
+	 	</set>
+	</class>
+</hibernate-mapping>
+
+<!-- 	private Long categoryId;//类别Id
+	private Set<File> files=new HashSet<File>();
+	private String categoryName;//类别名称
+	private String remarks;//备注 -->

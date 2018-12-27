@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+
+	<class name="Approve" table="t_approve">
+		<id name="approveId">
+            <generator class="native"/>
+		</id>
+		<property name="approver"/>
+		<property name="isApproved"/>
+		<property name="approveAdvice"/>
+		<property name="approveDate"/>
+		<property name="approvedStatus"/>
+
+		<!-- 与File类：1对1      外键关联--><!-- fileId生成到该表中 -->
+		<many-to-one name="file" class="EdFile" column="fileId" unique="true"></many-to-one>
+		
+	</class>
+</hibernate-mapping>
+
+<!-- 	private Long approveId;//索引
+	private File file;//批阅的公文、文件等
+	private String approver;//批准人
+	private String isApproved;//批准人是否阅读
+	private String approveAdvice;//批准意见
+	private Date approveDate;//批准日期
+	private String approvedStatus;//批准状态 -->

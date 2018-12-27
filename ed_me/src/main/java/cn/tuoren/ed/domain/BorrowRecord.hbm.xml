@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+
+	<class name="BorrowRecord" table="t_borrowRecord">
+		<id name="recordId">
+            <generator class="native"/>
+		</id>
+		<property name="borrowedDate"/>
+		<property name="borrowedStatus"/>
+		<property name="returnDate"/>
+		<!-- 与Book类：多对1 -->
+		<many-to-one name="book" column="bookId" class="Book"></many-to-one>
+		<!-- 与User类：多对一 -->
+		<many-to-one name="user" column="userId" class="User"></many-to-one>
+	</class>
+
+</hibernate-mapping>
+
+<!-- 	private Long index;//借阅记录索引
+	private Book book;//借出图书
+	private Set<User> users=new HashSet<User>();//借出人
+	private Date borrowedDate;//借出时间
+	private String borrowedStatus;//借出状态：借出or在库？
+	private String returnDate;//归还时间 -->

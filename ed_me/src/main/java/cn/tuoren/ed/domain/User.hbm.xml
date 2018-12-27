@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+	<class name="User" table="t_user">
+		<id name="userId">
+            <generator class="native"/>
+		</id>
+		<property name="loginName" unique="true"/>
+		<property name="password"/>
+		<property name="employeeName"/>
+		<property name="employeeId" unique="true"/>
+		<property name="phoneNumber"/>
+		<property name="email"/>
+		<property name="createDate"/>
+		<property name="loginTimes"/>
+		<property name="lastLoginDate"/>
+		<property name="lastLoginIp"/>
+		<property name="loginFlag"/>
+		<property name="delFlag"/>
+		<property name="remarks"/>
+		<!-- role属性，与Role：多对一 -->
+		<many-to-one name="role" column="roleId" class="Role"></many-to-one>
+		<!-- department属性，与Department：多对一 -->
+		<many-to-one name="department" column="departmentId" class="Department"></many-to-one>
+		<!-- records属性，与BorrowRecord：一对多 -->
+		<set name="records" table="t_user_record" lazy="false">
+	   		<key column="userId"></key>
+	   		<one-to-many class="BorrowRecord"></one-to-many>
+ 		</set>
+		<!-- files属性，与File：多对多 -->
+		<set name="files" table="t_user_file" lazy="false">
+			<key column="userId"></key>
+			<many-to-many class="EdFile" column="fileId"></many-to-many>
+		</set>
+		<!-- menus属性，与Menu：多对多 -->
+		<set name="menus" table="t_user_menu" lazy="false">
+			<key column="userId"></key>
+			<many-to-many class="Menu" column="menuId"></many-to-many>
+		</set>
+		<!-- messages属性，与Message：多对多 -->
+		<set name="messages" table="t_user_message" lazy="false">
+			<key column="userId"></key>
+			<many-to-many class="Message" column="messageId"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>
+
+<!-- 		
+private Long userId;//用户索引
+	private Department department;//部门
+	private Role role;//
+	private Set<Message> messages=new HashSet<Message>();
+	private Set<Menu> menus=new HashSet<Menu>();
+	private Set<File> files=new HashSet<File>();
+	private Set<BorrowRecord> records=new HashSet<BorrowRecord>();
+	private String loginName;//登录名
+	private String password;//密码
+	private String employeeName;//雇员姓名
+	private String employeeId;//工号
+	private String phoneNumber;//手机号码
+	private String email;//邮箱
+	private Date createDate;//创建日期
+	private int loginTimes;//登录次数
+	private Date lastLoginDate;//最后登录时间
+	private String lastLoginIp;//最后登录IP
+	private String loginFlag;//登录标识
+	private String delFlag;//删除标识
+	private String remarks;//备注
+-->

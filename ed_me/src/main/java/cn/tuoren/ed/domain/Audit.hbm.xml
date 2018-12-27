@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.tuoren.ed.domain">
+	<class name="Audit" table="t_audit">
+		<id name="auditId">
+            <generator class="native"/>
+		</id>
+		<property name="auditor"/>
+		<property name="isAudited"/>
+		<property name="auditAdvice"/>
+		<property name="auditDate"/>
+		<property name="auditStatus"/>
+		<!-- 与File类：1对1 --><!-- fileId生成到该表中 -->
+		<many-to-one name="file" class="EdFile" column="fileId" unique="true"></many-to-one>
+	</class>
+
+</hibernate-mapping>
+<!-- 	private Long aduitId;//审核记录Id
+	private File file;//审核的公文、文件等
+	private String auditor;//审核人
+	private String isAudited;//是否已经审核过
+	private String auditAdvice;//审核意见
+	private Date auditDate;//审核时间
+	private String auditStatus;//审核后的状态：通过or退回？ -->

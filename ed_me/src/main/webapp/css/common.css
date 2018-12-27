@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+h3{
+    font-family: 隶书;
+}
+
+label{
+    font-family: 楷体;
+}
+
+#search{
+    padding: 5px;
+    border-style: ridge;
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<!--常量配置-->
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.action.extension" value="action" />
+    <!-- 告知Struts2运行时使用Spring来创建对象 -->
+    <!-- <constant name="struts.objectFactory" value="spring"/> -->
+    <!-- <constant name="struts.i18n.encoding" value="utf-8"/> -->
+    <!-- 引入资源文件 -->
+    <!-- <constant name="struts.custom.i18n.resources" value="messageResource"></constant> -->
+    <!-- 配置主题 -->
+	<constant name="struts.ui.theme" value="simple" />
+	
+    <!--action配置-->
+    <package name="default" namespace="/" extends="struts-default">
+    	<global-results>
+    		<result name="error">/test.jsp</result>
+    	</global-results>
+    	
+    	<!-- test -->
+        <action name="test_*" method="{1}" class="testAction" >
+            <result name="{1}">/{1}.jsp</result>
+            <allowed-methods>test,test1,test2</allowed-methods>
+        </action>
+        
+        <!-- departmentAction -->
+        <action name="departmentAction_*" method="{1}" class="departmentAction">
+            <result name="{1}">/WEB-INF/jsp/department/department_{1}.jsp</result>
+            <result name="toList" type="redirectAction">departmentAction_list</result>
+            <allowed-methods>list,addUI,editUI,save,edit,delete</allowed-methods>
+        </action>
+        
+        <action name="book_*" method="{1}" class="bookAction">
+            <result name="{1}">/WEB-INF/jsp/book/book_{1}.jsp</result>
+            <allowed-methods>list,addUI,editUI,borrowUI,returnUI</allowed-methods>
+        </action>
+        
+        <!-- FileCategoryAction -->
+        <action name="fileCategoryAction_*" method="{1}" class="fileCategoryAction">
+        	<result name="{1}">/WEB-INF/jsp/file/category_{1}.jsp</result>
+        	<result name="input">/WEB-INF/jsp/file/category_addUI.jsp</result>
+        	<result name="toList" type="redirectAction">fileCategoryAction_list</result>
+        	<allowed-methods>addUI,editUI,list,add,delete,edit</allowed-methods>
+        </action>
+        
+        <!-- FileAction -->
+        <action name="fileAction_*" method="{1}" class="fileAction">
+        	<result name="{1}">/WEB-INF/jsp/file/file_{1}.jsp</result>
+        	<result name="toList" type="redirectAction">fileAction_list</result>
+        	<allowed-methods>addUI,editUI,list,add,delete,edit</allowed-methods>
+        </action>
+        
+    </package>
+    
+    
+</struts>
