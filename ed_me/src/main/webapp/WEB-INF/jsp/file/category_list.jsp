@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s" %>
+<%@ page import="com.alibaba.fastjson.JSON"  %>
 
 <!DOCTYPE html>
 <html>
@@ -32,9 +33,10 @@
 		        </div>
 		    </div>
 		</div>
-		<table class="easyui-datagrid" style="width:100%;height:480px" data-options="rownumbers:true,pagination:true">
+		<table id="categoryTable" class="easyui-datagrid" style="width:100%;height:480px" data-options="rownumbers:true,pagination:true">
 	        <thead>
 	            <tr>
+	            	<th data-options="field:'ck',checkbox:true"></th>
 	                <th data-options="field:'categoryId',width:100">ID</th>
 	                <th data-options="field:'categoryName',width:300">分类名称</th>
 	                <th data-options="field:'remarks',width:500">分类描述</th>
@@ -44,6 +46,7 @@
 	        <tbody>
 	        	<s:iterator value="#categoryList">
 	        		<tr>
+	        			<td></td>
 	        			<td><s:property value="categoryId"/></td>
 						<td><s:property value="categoryName"/></td>
 						<td><s:property value="remarks"/></td>

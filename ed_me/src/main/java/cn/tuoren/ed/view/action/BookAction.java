@@ -2,15 +2,20 @@ package cn.tuoren.ed.view.action;
 
 
 
+
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.opensymphony.xwork2.ActionContext;
-
 import cn.tuoren.ed.base.BaseAction;
 import cn.tuoren.ed.base.IBaseAction;
 import cn.tuoren.ed.domain.Book;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  * 图书管理
@@ -18,20 +23,30 @@ import cn.tuoren.ed.domain.Book;
  * @version v1.0.0  2018-12-11
  */
 
-@Controller
+@RestController
+@Scope("prototype")
 public class BookAction extends BaseAction<Book> implements IBaseAction{
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public String fun() {
+		
+		System.out.println(ServletActionContext.getRequest().getParameter("amount"));
+		return "toList";
+	}
 	/**
 	 * 保存后转发到list.jsp
 	 */
 	@Override
 	public String save() {
-        List<Book> lists=bookService.getAll();
-        ActionContext.getContext().put("bookList", lists);
+	    String strJson=model.getBookName();
+		System.out.println("strJson"+strJson);
+		JSONObject sfObject=JSONObject.fromObject(strJson);
+		Book book=(Book) JSONObject.toBean(sfObject,Book.class);
+		System.out.println(book.getBookName()+":"+book.getBookAuthor());
+        bookService.save(book);
 		return "toList";
 	}
 	/**
@@ -39,7 +54,7 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 */
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
+		bookService.delete(model.getBookId());
 		return "toList";
 	}
 	/**
@@ -47,7 +62,18 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 */
 	@Override
 	public String edit() {
-		// TODO Auto-generated method stub
+		Book book = new Book();
+		book.setBookId(model.getBookId());
+		book.setISBN_Number(model.getISBN_Number());
+		book.setBookCategory(model.getBookCategory());
+		book.setBookName(model.getBookName());
+		book.setBookAuthor(model.getBookAuthor());
+		book.setVersion(model.getVersion());
+		book.setBookPrice(model.getBookPrice());
+		book.setBookShelf(model.getBookShelf());
+		book.setAmount(model.getAmount());
+		book.setSynopsis(model.getSynopsis());
+		bookService.update(book);
 		return "toList";
 	}
 	/**
@@ -55,7 +81,9 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 */
 	@Override
 	public String list() {
-		// TODO Auto-generated method stub
+		List<Book> lists=bookService.getAll();
+        ActionContext.getContext().put("bookList", lists);
+       
 		return "list";
 	}
 	/**
@@ -63,7 +91,8 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 */
 	@Override
 	public String addUI() {
-		// TODO Auto-generated method stub
+		System.out.println("访问");
+		
 		return "addUI";
 	}
 	/**
@@ -71,7 +100,8 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 */
 	@Override
 	public String editUI() {
-		// TODO Auto-generated method stub
+		Book book = bookService.getById(model.getBookId());
+		ActionContext.getContext().put("bookedit", book);
 		return "editUI";
 	}
 	/**
@@ -79,6 +109,8 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 * @return
 	 */
 	public String borrowUI() {
+		Book book = bookService.getById(model.getBookId());
+		ActionContext.getContext().put("bookborrow", book);
 		return "borrowUI";
 	}
 	/**
@@ -86,6 +118,15 @@ public class BookAction extends BaseAction<Book> implements IBaseAction{
 	 * @return
 	 */
 	public String returnUI() {
+		Book book = bookService.getById(model.getBookId());
+		ActionContext.getContext().put("bookreturn", book);
 		return "returnUI";
+	}
+	public String queryByName() {
+		System.out.println(model.getBookName());
+		List<Book>lists= bookService.queryByName(model.getBookName());
+		System.out.println(lists);
+		 ActionContext.getContext().put("bookList", lists);
+		return "queryResult";
 	}
 }

@@ -9,9 +9,9 @@
 		<id name="categoryId">
             <generator class="native"/>
 		</id>
-		<property name="categoryName"/>
+		<property name="categoryName" unique="true"/>
 		<property name="remarks"/>
-		<!-- files属性，本类与file的关系：1对多 -->
+		<!-- files属性，本类与file的关系：1对多  fetch="join"-->
 		<set name="files" lazy="false">   <!-- table="t_Relative表" -->
 	   		<key column="categoryId"></key>
 	   		<one-to-many class="EdFile"></one-to-many>

@@ -9,7 +9,7 @@
 		<id name="id">
             <generator class="native"/>
 		</id>
-		<property name="name"/>
+		<property name="name" unique="true"/>
 		<property name="url"/>
 
 		<!-- roles属性，本类与Role：多对多 -->

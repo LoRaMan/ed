@@ -61,10 +61,11 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T>{
 
 	public BaseAction() {
 		try {
+			
 			// 得到model的类型信息
 			ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
 			Class clazz = (Class) pt.getActualTypeArguments()[0];
-
+			
 			// 通过反射生成model的实例
 			model = (T) clazz.newInstance();
 		} catch (Exception e) {

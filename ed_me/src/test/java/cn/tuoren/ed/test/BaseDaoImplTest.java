@@ -21,6 +21,8 @@ public class BaseDaoImplTest {
 		System.out.println(departmentDao.getById(new Long(2)).getDepartmentName());
 	}
 	
+	
+	
 	@Test
 	public void testSave() {
 		DepartmentDao departmentDao=(DepartmentDao)ac.getBean("departmentDao");

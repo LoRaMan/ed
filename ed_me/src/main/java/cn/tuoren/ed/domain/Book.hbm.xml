@@ -8,7 +8,7 @@
 		<id name="bookId">
             <generator class="native"/>
 		</id>
-		<property name="bookName"/>
+		<property name="bookName" not-null="true"/>
 		<property name="bookAuthor" />
 		<property name="bookPress"/>
 		<property name="bookCategory"/>
@@ -20,6 +20,8 @@
 		<property name="bookShelf"/>
 		<property name="synopsis"/>	
 		<property name="amount"/>
+		<property name="borrowed"/>
+		<property name="remain"/>
 		<!-- 与BorrowRecord类：1对多 -->
 		<set name="records" lazy="false">
 	   		<key column="bookId"></key>
@@ -40,4 +42,7 @@
 	private String version;//版本
 	private String bookShelf;//所在书架
 	private String synopsis;//简介
-	private int amount;//数量 -->
+	private int amount;//数量 
+	private int borrowed;//已借量
+	private int remain; //可借阅量
+	-->

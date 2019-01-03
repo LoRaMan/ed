@@ -12,6 +12,7 @@
 		<property name="borrowedDate"/>
 		<property name="borrowedStatus"/>
 		<property name="returnDate"/>
+		<property name="returnStatus"/>
 		<!-- 与Book类：多对1 -->
 		<many-to-one name="book" column="bookId" class="Book"></many-to-one>
 		<!-- 与User类：多对一 -->

@@ -17,8 +17,16 @@ public class BorrowRecord {
 	private User user;//借出人
 	private Date borrowedDate;//借出时间
 	private String borrowedStatus;//借出状态：借出or在库？
+	private String returnStatus;  //是否归还
 	private String returnDate;//归还时间
 	
+	
+	public String getReturnStatus() {
+		return returnStatus;
+	}
+	public void setReturnStatus(String returnStatus) {
+		this.returnStatus = returnStatus;
+	}
 	public Long getRecordId() {
 		return recordId;
 	}

@@ -9,7 +9,7 @@
 		<id name="projectId">
             <generator class="native"/>
 		</id>
-		<property name="projectName"/>
+		<property name="projectName" unique="true"/>
 		<property name="remark"/>
 
 		<!-- 与File：一对多 -->

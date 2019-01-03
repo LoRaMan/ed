@@ -8,7 +8,7 @@
 		<id name="departmentId">
             <generator class="native"/>
 		</id>
-		<property name="departmentName"/>
+		<property name="departmentName" unique="true"/>
 		<property name="remarks" />
 		<!-- 与User：1对多 -->
 		<set name="users" lazy="false">   

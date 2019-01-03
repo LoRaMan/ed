@@ -9,7 +9,7 @@
 		<id name="menuId">
             <generator class="native"/>
 		</id>
-		<property name="name"/>
+		<property name="name" unique="true"/>
 		<property name="href"/>
 		<property name="isShow"/>
 		<property name="delFlag"/>

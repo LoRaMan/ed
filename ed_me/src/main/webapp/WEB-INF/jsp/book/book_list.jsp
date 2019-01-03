@@ -1,138 +1,127 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>图书查询</title>
-         <!-- 引入样式、组件库、VUE -->
-         <%@ include file="/WEB-INF/jsp/public/repository.jspf" %>
-        <style>
-            #app{
-                width: 100%;
-                height: 700px;
-                text-align:-webkit-center;
-            }
-            el-input-group{
-                border-spacing: 40px;
-            }
-            el-input-group{
-                width: 59%;
-            }
-            input-with-select el-input-group__prepend {
-                background-color: #fff;
-            }
-            el-table{
-                text-align: -webkit-center;
-            }
-            el-table::before {
-                left: 0;
-                bottom: 0;
-                width: 80%;
-                height: 0;
-            }
-            el-input__inner{
-                width: 104%;
-            }
-            el-table cell{
-                text-align: center;
-                font-size: medium;
-            }
-            el-button--mini el-button--small {
-                font-size: medium;
-            }
-        </style>
-    </head>
-    <body >
-        <div id="app" >
-            <div style="margin-top: 50px; padding-bottom: 20px; width: 500px;">
-                <el-input placeholder="请输入内容" class="input-with-select">
-                    <el-button slot="append" icon="el-icon-search"></el-button>
-                </el-input>
-            </div>
-            <template>
-                <el-table ref="multipleTable"
-                        :data="tableData3"
-                        tooltip-effect="dark"
-                        style="width: 100%"
-                        @selection-change="handleSelectionChange">
-                <el-table-column type="selection" width="55"></el-table-column>
-                <el-table-column  prop="Book_name" label="书名"  width="150"></el-table-column>
-                <el-table-column prop="Book_author"   label="作者"  width="100"></el-table-column>
-                <el-table-column prop="Book_version"   label="版本"  width="100"></el-table-column>
-                <el-table-column prop="ISBN_numbe"   label="ISBN编号"  width="100"></el-table-column>
-                <el-table-column prop="Books_Price"   label="图书价格"  width="100"></el-table-column>
-                <el-table-column prop="Books_Shelf"   label="书架"  width="120"></el-table-column>
-                <el-table-column prop="Books_Amount"   label="总量"  width="100"></el-table-column>
-                <el-table-column prop="borrowed"   label="已借阅"  width="100"></el-table-column>
-                <el-table-column  prop="borrowable" label="可借阅"  width="100"></el-table-column>
-                <el-table-column  label="操作" width="180">
-                    <template slot-scope="scope">
-                         <el-button  type="text" @click="">编辑</el-button>
-                         <el-button @click.native.prevent="deleteRow(scope.$index, tableData3)" type="text" >删除</el-button>
-                        <el-button  type="text" @click="">借阅</el-button>
-                    </template>
-                </el-table-column>
-                </el-table>
-                <div style="text-align: center;margin-top:20px;">
-                    <el-pagination @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
-                            :current-page="currentPage4"
-                            :page-sizes="[5, 10, 20, 30]"
-                            :page-size="pageSize"
-                    　　　　layout="total, sizes, prev, pager, next, jumper"
-                    　　　　:total="100">
-                    </el-pagination>
-                </div>
-            </template>
-        </div>
-        <div class="el-pagination__editor"></div>
-        <script>
-        new Vue({
-            el: '#app',
-            data:function () {
-                return{
-                    tableData3: [{
-                        Book_name: '康桥',
-                        Book_author: '徐志摩',
-                        Book_version: '第1版',
-                        ISBN_numbe: '1-2-3-3-4',
-                        Books_Price: '13.14',
-                        Books_Shelf: '软件部',
-                        Books_Amount: 1,
-                        borrowed: '1',
-                        borrowable: '0'
-                    }, {
-                        Book_name: '面朝大海',
-                        Book_author: '海子',
-                        Book_version: '第2版',
-                        ISBN_numbe: '1-4-5-7-7',
-                        Books_Price: '52.10',
-                        Books_Shelf: '软件部',
-                        Books_Amount: '2',
-                        borrowed: 1,
-                        borrowable: 1
-                    }],
-                    multipleSelection: []
-                }
-            },
-            methods: {
-                deleteRow(index, rows) {
-                    rows.splice(index, 1);
-                },
-                toggleSelection(rows) {
-                    if (rows) {
-                        rows.forEach(row => {
-                            this.$refs.multipleTable.toggleRowSelection(row);
-                        });
-                    } else {
-                        this.$refs.multipleTable.clearSelection();
-                    }
-                },
-                handleSelectionChange(val) {
-                    this.multipleSelection = val;
-                }
-            }
-        })
-        </script>
-    </body>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>图书列表</title>
+<!-- bootstrap -->
+	<%@ include file="/WEB-INF/jsp/public/repository.jspf" %>
+<style type="text/css">
+.alert {
+	margin: 20px;
+	border-radius: 20px;
+	background: linear-gradient(to bottom #FFCCCC 50%, #CCFFCC 50%)
+}
+.table {
+
+    margin-top: 20px;
+}
+#TableTail_inside{
+	margin-top:15px;
+}
+.t-font{
+	font-size: 15px;
+	font-weight: bolder;
+}
+td{
+
+	text-align: center;
+	vertical-align: middle;
+}
+#footer{
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<!-- 添加功能超链接 -->
+	<div>
+		<div id="TableTail_inside">
+			<span class="glyphicon glyphicon-plus" style="color: rgb(62, 115, 172);">
+				<s:a action="bookAction_addUI.action" id="DownLoadAudio" target="_blank">添加图书</s:a>
+			</span>
+		</div>
+	</div>
+	<!-- style="margin-top:15px positon:relative" -->
+	 <s:form  action="book_queryByName.action" method="post" style="margin-top:15px;text-align: center;">
+		 	<div class="input-group col-md-3" style="margin:0 auto;">
+	       		<input type="text" class="form-control"placeholder="请输入书名" name="bookName"/ >
+	            <span class="input-group-btn">
+	               <button class="btn btn-info btn-search">查找</button>
+	            </span>
+ 			</div>
+	</s:form>
+	<div>
+		<s:if test="#bookList.size()==0">			
+			<div id="myAlert" class="alert alert-warning">
+				<a href="#" class="close" data-dismiss="alert">&times;</a> <strong>没有查询到数据</strong>
+			</div>
+		</s:if>
+		<s:if test="#bookList.size()!=0"> 
+			<table class="table  table-border table table-striped">
+				<thead>
+					<tr class="t-font">
+						<td>书名</td>
+						<td>作者</td>
+						<td>版本</td>
+						<td>出版社</td>
+						<td>ISBN编号</td>
+						<td>图书价格</td>
+						<td>书架</td>
+						<td>总量</td>
+						<td>已借阅</td>
+						<td>可借阅</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<s:iterator value="#bookList">
+						<tr>
+							<td><s:property value="bookName" /></td>
+							<td><s:property value="bookAuthor" /></td>
+							<td><s:property value="version" /></td>
+							<td><s:property value="bookPress" /></td>
+							<td><s:property value="ISBN_Number" /></td>
+							<td><s:property value="bookPrice" /></td>
+							<td><s:property value="bookShelf" /></td>
+							<td><s:property value="amount" /></td>
+							<td><s:property value="borrowed" /></td>
+							<td><s:property value="remain" /></td>
+							<td><s:a action="bookAction_delete?bookId=%{bookId}"
+									onclick="return window.confirm('您确定要删除该图书吗？')"><span class="glyphicon glyphicon-pencil" style="color: rgb(62, 115, 172);">编辑 </span></s:a>
+									
+							    <s:a action="bookAction_delete?bookId=%{bookId}" onclick="return window.confirm('您确定要删除该图书吗？')"><span class="glyphicon glyphicon-remove" style="color: rgb(62, 115, 172);">删除</span></s:a>
+							    <s:a action="bookAction_delete?bookId=%{bookId}"
+									onclick="return window.confirm('您确定要删除该图书吗？')">
+								<span class="glyphicon glyphicon-share-alt" style="color: rgb(62, 115, 172);">借阅</span></s:a></td>
+						</tr>
+					</s:iterator>	
+				</tbody>
+			</table>
+			<div id="footer">共10页  
+					<select  class="form-control" style="width: 65px;display: inline-block;">
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="40">40</option>
+					</select>
+
+		<ul class="pager" style="display:inline-block;">
+			<li><a href="#">上一页</a></li>
+			<li><a href="#">下一页</a></li>
+		</ul>
+		前往<input type="number" class="form-control" min="1" max="20" name="goPage" style="width: 60px;display: inline-block;"> 页
+	</div>
+		</s:if> 
+	</div>
+	
+</body>
+<script type="text/javascript">
+$(function(){
+    $(".close").click(function(){
+        $("#myAlert").alert();
+    });
+});
+</script>
 </html>

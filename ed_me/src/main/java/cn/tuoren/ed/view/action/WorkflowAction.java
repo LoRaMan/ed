@@ -17,10 +17,6 @@ import cn.tuoren.ed.domain.Book;
 //@Scope("prototype")
 public class WorkflowAction extends BaseAction<Book> implements IBaseAction {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	@Override
 	public String save() {
 		// TODO Auto-generated method stub

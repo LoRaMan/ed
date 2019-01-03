@@ -30,6 +30,21 @@ public class Book {
 	private String bookShelf;//所在书架
 	private String synopsis;//简介
 	private int amount;//数量
+	private int borrowed;  //已借阅
+	private int remain;  //可借阅
+	
+	public int getBorrowed() {
+		return borrowed;
+	}
+	public void setBorrowed(int borrowed) {
+		this.borrowed = borrowed;
+	}
+	public int getRemain() {
+		return remain;
+	}
+	public void setRemain(int remain) {
+		this.remain = remain;
+	}
 	public Long getBookId() {
 		return bookId;
 	}

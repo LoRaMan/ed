@@ -9,12 +9,13 @@
 		<id name="roleId">
             <generator class="native"/>
 		</id>
-		<property name="roleName"/>
+		<property name="roleName" unique="true" not-null="true"/><!-- 角色名称 -->
 		<property name="englishName"/>
 		<property name="roleType"/>
 		<property name="useable"/>
 		<property name="createDate"/>
 		<property name="remarks"/>
+		<property name="code" unique="true" not-null="true"/><!--角色编码  -->
 
 		<!-- 与User：1对多 -->
 		<set name="users" lazy="false">

@@ -25,6 +25,7 @@ public class Role {
 	private String useable;//是否可用
 	private Date createDate;//创建时间
 	private String remarks;//备注
+	private String code;//备注
 	
 	public Long getRoleId() {
 		return roleId;
@@ -79,6 +80,12 @@ public class Role {
 	}
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	
