@@ -12,7 +12,7 @@
 		<property name="categoryName" unique="true"/>
 		<property name="remarks"/>
 		<!-- files属性，本类与file的关系：1对多  fetch="join"-->
-		<set name="files" lazy="false">   <!-- table="t_Relative表" -->
+		<set name="files" lazy="false" fetch="join">   <!-- table="t_Relative表" -->
 	   		<key column="categoryId"></key>
 	   		<one-to-many class="EdFile"></one-to-many>
 	 	</set>

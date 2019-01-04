@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.opensymphony.xwork2.ActionContext;
 
-import cn.tuoren.ed.base.IBase;
+import cn.tuoren.ed.base.BaseServiceImpl;
 import cn.tuoren.ed.base.PageBean;
 
 /**
@@ -150,7 +150,7 @@ public class HqlHelper {
 	 * @param service
 	 * @return
 	 */
-	public HqlHelper buildPageBeanForStruts2(int pageNum, IBase<?> service) {
+	public HqlHelper buildPageBeanForStruts2(int pageNum, BaseServiceImpl<?> service) {
 		System.out.println("===> HqlHelper.buildPageBeanForStruts2()");
 		
 		PageBean pageBean = service.getPageBean(pageNum, this);

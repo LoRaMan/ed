@@ -81,14 +81,14 @@
 		                </div>
 		            </div>
 		        </div>
-		        <div class="form-group">
+<!-- 		        <div class="form-group">
 		            <div class="row">
 		                <label class="col-sm-2 control-label">存储路径：</label>
 		                <div class="col-sm-8">
 		                    <input type="text" class="form-control" required="required" name="path" value="">
 		                </div>
 		            </div>
-		        </div>
+		        </div> -->
 		        <div class="form-group">
 		            <div class="row">
 		                <label class="col-sm-2 control-label">文件状态：</label>
@@ -98,11 +98,11 @@
 		            </div>
 		        </div>
 		        
-		        <%-- <div class="form-group">
+		        <div class="form-group">
 		            <div class="row">
 		                <label class="col-sm-2 control-label">文件描述：</label>
 		                <div class="col-sm-8">
-		                    <textarea rows="5" class="form-control" placeholder="请输入文件描述"></textarea>
+		                    <textarea name="remarks" rows="5" class="form-control" placeholder="请输入文件描述"></textarea>
 		                </div>
 		            </div>
 		        </div>
@@ -114,7 +114,7 @@
 		                    <input type="file" multiple="multiple"/>
 		                </div>
 		            </div>
-		        </div> --%>
+		        </div>
 		        <hr/>
 		        <div class="form-group">
 		            <div class="row">
@@ -132,21 +132,6 @@
 		  	if(msg!=""){
 		  		alert(msg);
 		  	}
-
-		  	$("#fileName").bind('input propertychange', function(){
-			  		var fileName=$("#fileName").val();
-			  		var url="fileAction_nameCheck.action?fileName="+fileName;
-			  		console.log(url);
-			  		$.ajax({
-						url:url,
-						type:"post",
-						dataType:"text",
-						success:function(data){
-							$("#nameCheck").html(data);
-						}
-					});
-			  	});
-		  	
 		</script>
 	</body>
 </html>

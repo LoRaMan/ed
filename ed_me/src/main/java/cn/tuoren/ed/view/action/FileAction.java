@@ -3,7 +3,6 @@ package cn.tuoren.ed.view.action;
 import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import com.opensymphony.xwork2.ActionContext;
 import cn.tuoren.ed.base.BaseAction;
 import cn.tuoren.ed.base.IBaseAction;
 import cn.tuoren.ed.domain.EdFile;
@@ -27,16 +26,17 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 	private static final long serialVersionUID = 1L;
 	private Long projectId;
 	private Long categoryId;
-	private String fileName;
 	/**
 	 * 保存到数据库后转发到列表页面
 	 */
 	@Override
 	public String save() {
+		//根据页面传递的projectId获取Project对象
 		Project project = projectService.getById(projectId);
-		model.setProject(project);
-
+		//根据页面传递的categoryId获取FileCategory对象
 		FileCategory category=fileCategoryService.getById(categoryId);
+		
+		model.setProject(project);
 		model.setCategory(category);
 		//保存成功返回添加页面，并返回成功消息；保存失败，转到error.jsp页面，提示失败。
 		try {
@@ -45,6 +45,7 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 		} catch (Exception e) {
 			Struts2Util.put("msg", "添加失败,请检查该文件是否已存在！");
 		}
+		getSelectListValue();
 		return "input";
 	}
 	/**
@@ -60,19 +61,34 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 	 */
 	@Override
 	public String edit() {
-		fileService.update(model);
-		return "toList";
+		//根据页面传递的projectId获取Project对象
+		Project project=projectService.getById(projectId);
+		//根据页面传递的categoryId获取FileCategory对象
+		FileCategory category=fileCategoryService.getById(categoryId);
+		
+		model.setProject(project);
+		model.setCategory(category);
+		try {
+			fileService.update(model);
+			Struts2Util.push(model);
+			Struts2Util.put("msg","修改成功！");
+			getSelectListValue();//将project和category列表的值查询出来放入ValueStack
+		} catch (Exception e) {
+			Struts2Util.push(model);
+			Struts2Util.put("msg","修改失败！");
+			getSelectListValue();//将project和category列表的值查询出来放入ValueStack
+			e.getStackTrace();
+		}
+		return "edit";
 	}
 	/**
 	 * 从数据库查询数据，显示到列表页面
 	 */
+	//TODO 改为分页查询
 	@Override
 	public String list() {
 		List<EdFile> files=fileService.getAll();
 		Struts2Util.put("fileList", files);
-		for (EdFile edFile : files) {
-			System.out.println(edFile.getCategory().getCategoryName());
-		}
 		return "list";
 	}
 	
@@ -81,12 +97,7 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 	 */
 	@Override
 	public String addUI() {
-		//获取分类列表
-		List<FileCategory> categoryList=fileCategoryService.getAll();
-		Struts2Util.put("categoryList", categoryList);
-		//获取项目列表
-		List<Project> projectList=projectService.getAll();
-		Struts2Util.put("projectList", projectList);
+		getSelectListValue();
 		return "addUI";
 	}
 
@@ -101,14 +112,11 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 		//获取项目列表
 		List<Project> projectList=projectService.getAll();
 		Struts2Util.put("projectList", projectList);
-		
+		//获取EdFile对象
 		EdFile file=fileService.getById(model.getFileId());
+		//压入ValueStack
 		Struts2Util.push(file);
 		return "editUI";
-	}
-	
-	public void nameCheck() {
-		
 	}
 	
 	/**
@@ -134,11 +142,14 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
 	
+	//将project和category列表的值查询出来放入ValueStack
+	private void getSelectListValue() {
+		//获取分类列表
+		List<FileCategory> categoryList=fileCategoryService.getAll();
+		Struts2Util.put("categoryList", categoryList);
+		//获取项目列表
+		List<Project> projectList=projectService.getAll();
+		Struts2Util.put("projectList", projectList);
+	}
 }

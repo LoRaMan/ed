@@ -79,9 +79,6 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
  
- 	<bean id="bookDao" class="cn.tuoren.ed.dao.impl.BookDao">
- 		
- 	</bean>
     <!-- 开启注解事务 -->
     <!-- <tx:annotation-driven/>告诉Spring检查上下文中所有bean并检查使用到@Transactional注解的bean -->
     <tx:annotation-driven transaction-manager="transactionManager"/>

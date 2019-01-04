@@ -13,7 +13,7 @@
 		<property name="remark"/>
 
 		<!-- 与File：一对多 -->
-		<set name="files" lazy="false">
+		<set name="files" lazy="false" fetch="join">
 	   		<key column="projectId"></key>
 	   		<one-to-many class="EdFile"></one-to-many>
 	 	</set>

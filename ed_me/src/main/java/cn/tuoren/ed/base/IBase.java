@@ -36,12 +36,6 @@ public interface IBase<T> {
 	 */
 	T getById(Long id);
 	/**
-	 * 根据名称查询
-	 * @param name
-	 * @return
-	 */
-	T getByName(String name);
-	/**
 	 * 根据ID数组查询实体列表
 	 * @param ids
 	 * @return

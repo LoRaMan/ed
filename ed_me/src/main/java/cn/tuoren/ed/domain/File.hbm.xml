@@ -24,9 +24,9 @@
 		<!-- 与Approve类：1对1 -->
 		<one-to-one name="approve" class="Approve" cascade="all"></one-to-one>
 		<!-- 与Projcet类：多对1 -->
-		<many-to-one name="project" column="projectId" class="Project"></many-to-one>
+		<many-to-one name="project" column="projectId" class="Project" lazy="false" fetch="join"></many-to-one>
 		<!-- 与FileCategory类：多对1 -->
-		<many-to-one name="category" column="categoryId" class="FileCategory" lazy="false"></many-to-one>
+		<many-to-one name="category" column="categoryId" class="FileCategory" lazy="false" fetch="join"></many-to-one>
 		<!-- 与User类：多对多 -->
 		<set name="users" table="t_user_file" lazy="false">
 			<key column="fileId"></key>

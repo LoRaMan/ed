@@ -55,8 +55,8 @@
         <!-- FileAction -->
         <action name="fileAction_*" method="{1}" class="fileAction">
         	<result name="{1}">/WEB-INF/jsp/file/file_{1}.jsp</result>
-        	<result name="input">fileAction_addUI</result>
-        	<result name="toList" type="redirectAction">fileAction_list</result>
+        	<result name="input">/WEB-INF/jsp/file/file_addUI.jsp</result>
+        	<result name="edit">/WEB-INF/jsp/file/file_editUI.jsp</result>
         	<allowed-methods>addUI,editUI,list,save,delete,edit</allowed-methods>
         </action>
     </package>

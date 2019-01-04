@@ -71,14 +71,6 @@ public abstract class BaseDaoImpl<T> implements IBase<T> {
 	}
 
 	@Override
-	public T getByName(String name) {
-		if (name==null) {
-			return null;
-		}
-		return getSession().get(clazz, name);
-	}
-
-	@Override
 	public List<T> getByIds(Long[] ids) {
 		if (ids==null || ids.length==0) {
 			return Collections.EMPTY_LIST;

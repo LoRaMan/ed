@@ -26,10 +26,6 @@ public class BaseServiceImpl<T> {
 		return baseDaoImpl.getById(id);
 	}
 
-	public T getByName(String name) {
-		return baseDaoImpl.getByName(name);
-	}
-
 	public List<T> getByIds(Long[] ids) {
 		return baseDaoImpl.getByIds(ids);
 	}
