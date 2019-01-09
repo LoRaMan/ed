@@ -88,7 +88,7 @@ public abstract class BaseDaoImpl<T> implements IBase<T> {
 	
 	@Override
 	public PageBean<T> getPageBean(int currentPageCode, String queryListHQL, Object[] parameters) {
-		int pageSize = Configuration.getPageSize();
+		int pageSize = Configuration.pageSize;
 
 		// 查询本页的数据列表
 		Query listQuery = getSession().createQuery(queryListHQL);
@@ -118,7 +118,7 @@ public abstract class BaseDaoImpl<T> implements IBase<T> {
 	// 最终版
 	@Override
 	public PageBean<T> getPageBean(int currentPageCode, HqlHelper hqlHelper) {
-		int pageSize = Configuration.getPageSize();
+		int pageSize = Configuration.pageSize;
 		List<Object> parameters = hqlHelper.getParameters();
 
 		// 查询本页的数据列表

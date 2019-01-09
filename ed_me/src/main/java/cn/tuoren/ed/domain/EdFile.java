@@ -1,39 +1,49 @@
 package cn.tuoren.ed.domain;
 
 import java.util.Date;
-
 /**
  * 文件、文档
  * @author wangqing 2018-12-5
  * @version 1.0.0
  */
-import java.util.Set;
 
 import javax.persistence.Entity;
 @Entity
 public class EdFile {
-	//与Audit：1对1
-	//与Approve：1对1
-	//与FileCategory:多对1
-	//与Project：多对1
-	//User：多对多
+	//与Audit：1对1，一个文件一个审核
+	//与Approve：1对1，一个文件只能一个批准
+	//与FileCategory:多对1，一个分类包含多个文件
+	//与Project：多对1，一个项目包含多个文件
+	//User：多对1，一个用户上传多个文件
 	private Long fileId;//文件索引
 	private FileCategory category;//文件类别
 	private Audit audit;
 	private Approve approve;
 	private Project project;//归属项目
-	private Set<User> users;
+	private User uploadUser;//上传用户
 	private String fileType;//文件类型
 	private String fileName;//文件名
 	private Double fileSize;//文件大小
 	private Date uploadTime;//上传时间
-	private String uploader;//上传人
 	private String fileStatus;//文件状态
-	private String secretLevel;//保密级别
+	private String isProjectFile;//是否为项目文件
 	private String version;//文件版本
 	private String path;//存储路径
 	
 	
+	
+	public User getUploadUser() {
+		return uploadUser;
+	}
+	public void setUploadUser(User uploadUser) {
+		this.uploadUser = uploadUser;
+	}
+	public String getIsProjectFile() {
+		return isProjectFile;
+	}
+	public void setIsProjectFile(String isProjectFile) {
+		this.isProjectFile = isProjectFile;
+	}
 	public Long getFileId() {
 		return fileId;
 	}
@@ -64,12 +74,6 @@ public class EdFile {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	public Set<User> getUsers() {
-		return users;
-	}
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
 	public String getFileType() {
 		return fileType;
 	}
@@ -94,23 +98,11 @@ public class EdFile {
 	public void setUploadTime(Date uploadTime) {
 		this.uploadTime = uploadTime;
 	}
-	public String getUploader() {
-		return uploader;
-	}
-	public void setUploader(String uploader) {
-		this.uploader = uploader;
-	}
 	public String getFileStatus() {
 		return fileStatus;
 	}
 	public void setFileStatus(String fileStatus) {
 		this.fileStatus = fileStatus;
-	}
-	public String getSecretLevel() {
-		return secretLevel;
-	}
-	public void setSecretLevel(String secretLevel) {
-		this.secretLevel = secretLevel;
 	}
 	public String getVersion() {
 		return version;

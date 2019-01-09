@@ -6,6 +6,11 @@
     <meta charset="UTF-8">
     <title>首页</title>
 	<%@ include file="/WEB-INF/jsp/public/repository.jspf" %>
+	<style type="text/css">
+        #centerBody>.tabs-panels>.panel>.panel-body {  
+	    	overflow: hidden;  
+	    } 
+    </style>
 </head>
     <body class="easyui-layout">
         <!--头部-->
@@ -27,40 +32,31 @@
         <!--左侧菜单栏，需要根据数据自动生成-->
         <div data-options="region:'west',split:true" title="MENU" style="width:150px;padding:2px;">
             <div class="easyui-accordion" data-options="fit:true,border:false">
-                <div title="文件管理" class="card" style="width:18rem;">
+                <div title="文件管理" class="card" style="width:18rem"  data-options="selected:true">
                     <div class="list-group">
                         <button type="button" class="list-group-item" onclick="addTab('分类管理','fileCategoryAction_list.action')">分类管理</button>
                         <button type="button" class="list-group-item" onclick="addTab('文件管理','fileAction_list.action')">文件管理</button>
-                        <button type="button" class="list-group-item" onclick="addTab('文件批准','fileManagement/fileApprove.html')">文件批准</button>
-                        <button type="button" class="list-group-item" onclick="addTab('文件审核','fileManagement/fileAudit.html')">文件审核</button>
+                        <button type="button" class="list-group-item" onclick="addTab('项目管理','projectAction_list.action')">项目管理</button>
                     </div>
                 </div>
                 <div title="流程管理" class="card" style="width:18rem;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item" onclick="addTab('流程列表','progressManagement/progressList.html')">流程列表</button>
-                        <button type="button" class="list-group-item" onclick="addTab('运行流程列表','progressManagement/progressRunningList.html')">运行流程列表</button>
+                        <button type="button" class="list-group-item" onclick="addTab('流程列表','#')">流程列表</button>
+                        <button type="button" class="list-group-item" onclick="addTab('运行流程列表','#')">运行流程列表</button>
                     </div>
                 </div>
                 <div title="权限管理" class="card" style="width:18rem;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item" onclick="addTab('添加角色','pageED/addRole.html')">添加角色</button>
-                        <button type="button" class="list-group-item" onclick="addTab('授权','pageED/授权.html')">授权</button>
-                        <button type="button" class="list-group-item" onclick="addTab('授权功能菜单','pageED/授权功能菜单.html')">授权功能菜单</button>
-                        <button type="button" class="list-group-item" onclick="addTab('数据权限分配','pageED/数据权限分配.html')">数据权限分配</button>
-                        <button type="button" class="list-group-item" onclick="addTab('数据权限管理','pageED/数据权限管理.html')">数据权限管理</button>
-                        <button type="button" class="list-group-item" onclick="addTab('用户管理','pageED/用户管理.html')">用户管理</button>
-                        <button type="button" class="list-group-item" onclick="addTab('编辑角色','pageED/编辑角色.html')">编辑角色</button>
-                        <button type="button" class="list-group-item" onclick="addTab('角色授权用户','pageED/角色授权用户.html')">角色授权用户</button>
-                        <button type="button" class="list-group-item" onclick="addTab('角色权限分配','pageED/角色权限分配.html')">角色权限分配</button>
-                        <button type="button" class="list-group-item" onclick="addTab('角色添加用户','pageED/角色添加用户.html')">角色添加用户</button>
+                    	<button type="button" class="list-group-item" onclick="addTab('部门管理','departmentAction_list.action')">部门管理</button>
+                    	<button type="button" class="list-group-item" onclick="addTab('权限管理','#')">权限管理</button>
+                        <button type="button" class="list-group-item" onclick="addTab('角色管理','#')">角色管理</button>
+                        <button type="button" class="list-group-item" onclick="addTab('用户管理','#')">用户管理</button>
                     </div>
                 </div>
-                <div title="图书管理" class="card" style="width:18rem;" data-options="selected:true">
+                <div title="图书管理" class="card" style="width:18rem;">
                     <div class="list-group">
-                        <button type="button" class="list-group-item" onclick="addTab('添加图书','LoginAndBook/bookAdd.html')">添加图书</button>
-                        <button type="button" class="list-group-item" onclick="addTab('图书列表','LoginAndBook/bookList.html')">图书列表</button>
-                        <button type="button" class="list-group-item" onclick="addTab('图书借阅','LoginAndBook/bookBorrow.html')">图书借阅</button>
-                        <button type="button" class="list-group-item" onclick="addTab('图书归还','LoginAndBook/bookReturn.html')">图书归还</button>
+                        <button type="button" class="list-group-item" onclick="addTab('图书管理','#')">图书管理</button>
+                        <button type="button" class="list-group-item" onclick="addTab('借阅管理','#')">借阅管理</button>
                     </div>
                 </div>
             </div>
@@ -69,10 +65,10 @@
         <!--右侧消息栏-->
         <div data-options="region:'east',split:true,collapsed:true,title:'消息栏'" style="width:100px;padding:5px;">
             <button type="button button-sm" class="btn btn-primary">
-                未读<span class="badge badge-light"><u>4</u></span>
+                	未读<span class="badge badge-light"><u>4</u></span>
             </button>
             <button type="button" class="btn btn-primary">
-                待处理<span class="badge badge-light"><u>9</u></span>
+                	待处理<span class="badge badge-light"><u>9</u></span>
             </button>
         </div>
 
@@ -81,11 +77,12 @@
             <span>欢迎使用！！！！！！</span>
         </div>
 
-        <!--中间显示区-->
+        <!--中间显示区 class="easyui-tabs" data-options="tools:'#tab-tools'"-->
         <div data-options="region:'center'">
-            <div id="centerBody" class="easyui-tabs" data-options="tools:'#tab-tools'" style="width:100%;height:98%">
+            <div id="centerBody"  class="easyui-tabs" data-options="tools:'#tab-tools'" style="width:100%;height:100%">
                 <div title="首页" data-options="border:true,iframe:true,
-                content:'<iframe src=\'fileAction_list.action\' frameborder=\'0\' style=\'width:100%;height:100%;\'></iframe>'"></div>
+                content:'<iframe src=\'fileAction_list.action\' frameborder=\'0\' style=\'width:100%;height:100%;\'></iframe>'">
+                </div>
             </div>
         </div>
         <div id="mm1" style="width:100px;">

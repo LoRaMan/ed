@@ -14,10 +14,10 @@ import javax.persistence.Entity;
 @Entity
 public class Role {
 	
-	//与User：1对多
+	//与User：多对多
 	//与Authentication：多对多
 	private Long roleId;//索引
-	private Set<User> users=new HashSet<User>();//用户（1---多）
+	private Set<User> users=new HashSet<User>();//用户（多---多）
 	private Set<Authentication> authentications=new HashSet<Authentication>();//权限（多----多）
 	private String roleName;//角色名称
 	private String englishName;//英文名称

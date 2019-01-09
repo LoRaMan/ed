@@ -26,14 +26,14 @@
             <s:form id="addForm" action="fileCategoryAction_save">
             	<div style="margin-bottom:20px">
                     <label>分类名称:</label>
-                    <s:textfield name="categoryName" class="easyui-textbox" style="width:100%" data-options="required:true"/>
+                    <s:textfield id="catename" name="categoryName" class="easyui-textbox" style="width:100%" data-options="required:true"/>
                 </div>
                 <div style="margin-bottom:20px">
                     <label>分类描述:</label>
                     <s:textarea name="remarks" class="easyui-textbox" style="width:100%;height:60px" data-options="multiline:true"/>
                 </div>
                 <div div style="text-align:center; margin: auto">
-                	<s:submit value="提交" class="btn btn-success" style="width:80px"></s:submit>
+                	<s:submit id="tijiao" value="提交" class="btn btn-success" style="width:80px"></s:submit>
                 	&nbsp;&nbsp;&nbsp;&nbsp;
                 	<s:reset value="重置" class="btn btn-warning" style="width:80px"></s:reset>
                 </div>
@@ -41,10 +41,10 @@
         </div>
     </body>
     <script type="text/javascript">
-		  //错误提示信息
-		  var msg=""+'${msg}';
-		  if(msg!=""){
-		  alert(msg);
-		  }
+		//错误提示信息
+		var msg=""+'${msg}';
+		if(msg!=""){
+		alert(msg);
+		}
     </script>
 </html>

@@ -13,6 +13,8 @@
     <constant name="struts.custom.i18n.resources" value="messageResource"></constant>
     <!-- 配置主题 -->
 	<constant name="struts.ui.theme" value="simple" />
+	<!-- 配置临时文件路径 -->
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
 	
     <!--action配置 struts-default,-->
     <package name="default" namespace="/" extends="json-default">
@@ -32,6 +34,12 @@
             <result name="toList" type="redirectAction">departmentAction_list</result>
             <allowed-methods>list,addUI,editUI,save,edit,delete</allowed-methods>
         </action>
+        <!-- projectAction -->
+        <action name="projectAction_*" method="{1}" class="projectAction">
+            <result name="{1}">/WEB-INF/jsp/project/project_{1}.jsp</result>
+            <result name="toList" type="redirectAction">projectAction_list</result>
+            <allowed-methods>list,addUI,editUI,save,edit,delete</allowed-methods>
+        </action>
         
         <action name="book_*" method="{1}" class="bookAction">
             <result name="{1}">/WEB-INF/jsp/book/book_{1}.jsp</result>
@@ -41,7 +49,13 @@
         </action>
         <action name="role_*" method="{1}" class="roleAction">
             <result name="{1}">/WEB-INF/jsp/role/role_{1}.jsp</result> 
-            <allowed-methods>list,addUI,editUI,save,delete,addRole,shouQuan,shouQuanGNmenu,shuJuQXFenPei,shuJuQXGuanLi,yongHuGuanLi,bianJiJueSe,JueSeSQYongHu,JueSeQXFenPei,JueSeAddYongHu</allowed-methods>
+            <result name="listTwo" type="json">
+        		<param name="root">resultdata</param>
+			</result>
+			<result name="addRole" type="json">
+        		<param name="root">resultdata</param>
+			</result>
+            <allowed-methods>list,listTwo,addUI,editUI,save,delete,addRole,shouQuan,shouQuanGNmenu,shuJuQXFenPei,shuJuQXGuanLi,yongHuGuanLi,bianJiJueSe,JueSeSQYongHu,JueSeQXFenPei,JueSeAddYongHu</allowed-methods>
         </action>
         
         <!-- FileCategoryAction -->
@@ -57,8 +71,27 @@
         	<result name="{1}">/WEB-INF/jsp/file/file_{1}.jsp</result>
         	<result name="input">/WEB-INF/jsp/file/file_addUI.jsp</result>
         	<result name="edit">/WEB-INF/jsp/file/file_editUI.jsp</result>
-        	<allowed-methods>addUI,editUI,list,save,delete,edit</allowed-methods>
+        	<result name="toList" type="redirectAction">fileAction_list</result>
+        	<allowed-methods>addUI,editUI,uploadUI,list,save,delete,edit</allowed-methods>
         </action>
+        
+        <!--  -->
+        <action name="uploadAction" class="uploadAction">
+        	<result name="success" type="json">
+        		<param name="root">returnMsg</param>
+        	</result>
+        </action>
+        
+        <!--  -->
+        <action name="downloadAction" class="downloadAction">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream;charset=UTF-8</param>
+                <param name="contentDisposition">attachment;filename="${downFileName}"</param>
+                <param name="inputName">attrInputStream</param>
+                <param name="bufferSize">4096</param>
+            </result>
+        </action>
+        
     </package>
     
     

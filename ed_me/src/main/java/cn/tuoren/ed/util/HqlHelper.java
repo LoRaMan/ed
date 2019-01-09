@@ -2,9 +2,7 @@ package cn.tuoren.ed.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.opensymphony.xwork2.ActionContext;
-
 import cn.tuoren.ed.base.BaseServiceImpl;
 import cn.tuoren.ed.base.PageBean;
 
@@ -65,7 +63,6 @@ public class HqlHelper {
 				parameters.add(obj);
 			}
 		}
-
 		return this;
 	}
 
@@ -150,12 +147,16 @@ public class HqlHelper {
 	 * @param service
 	 * @return
 	 */
+
 	public HqlHelper buildPageBeanForStruts2(int pageNum, BaseServiceImpl<?> service) {
-		System.out.println("===> HqlHelper.buildPageBeanForStruts2()");
-		
-		PageBean pageBean = service.getPageBean(pageNum, this);
-		ActionContext.getContext().getValueStack().push(pageBean);
+		PageBean rtnPageBean = service.getPageBean(pageNum, this);
+		ActionContext.getContext().getValueStack().push(rtnPageBean);
 		return this;
+	}
+
+	public PageBean returnPageBean(int pageNum, BaseServiceImpl<?> service) {
+		PageBean rtnPageBean = service.getPageBean(pageNum, this);
+		return rtnPageBean;
 	}
 
 }

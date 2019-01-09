@@ -3,7 +3,7 @@
 <!-- jquery.validate CDN引用-->
 <%-- <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
 <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script> --%>
-
+<link rel ="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/image/tr.ico">
 
 <!-- bootstrap -->
 	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

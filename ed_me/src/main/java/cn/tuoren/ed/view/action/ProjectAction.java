@@ -2,12 +2,15 @@ package cn.tuoren.ed.view.action;
 
 
 
+import java.util.List;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import cn.tuoren.ed.base.BaseAction;
 import cn.tuoren.ed.base.IBaseAction;
 import cn.tuoren.ed.domain.Project;
+import cn.tuoren.ed.util.Struts2Util;
 
 /**
  * 项目管理
@@ -27,37 +30,38 @@ public class ProjectAction extends BaseAction<Project> implements IBaseAction {
 
 	@Override
 	public String save() {
-		// TODO Auto-generated method stub
+		projectService.save(model);
 		return "toList";
 	}
 
 	@Override
 	public String delete() {
-		// TODO Auto-generated method stub
+		projectService.delete(model.getProjectId());
 		return "toList";
 	}
 
 	@Override
 	public String edit() {
-		// TODO Auto-generated method stub
+		projectService.update(model);
 		return "toList";
 	}
 
 	@Override
 	public String list() {
-		// TODO Auto-generated method stub
+		List<Project> projects=projectService.getAll();
+		Struts2Util.put("projectList", projects);
 		return "list";
 	}
 
 	@Override
 	public String addUI() {
-		// TODO Auto-generated method stub
 		return "addUI";
 	}
 
 	@Override
 	public String editUI() {
-		// TODO Auto-generated method stub
+		Project project=projectService.getById(model.getProjectId());
+		Struts2Util.push(project);
 		return "editUI";
 	}
 }

@@ -8,18 +8,18 @@
 </head>
 <body>
 	<!-- 添加功能超链接 -->
-    <div>
-        <div id="TableTail_inside">
-            <s:a action="departmentAction_addUI">添加部门</s:a>
-        </div>
-    </div>
-	<div>
-		<table>
+	<div style="border-bottom: black;padding: 5px;font-family: 隶书;"><h3>分类列表</h3></div>
+	<div class="table-responsive">
+	    <div>
+	    	<s:a href="#" onclick="self.parent.addTab('添加部门','departmentAction_addUI.action')" class="easyui-linkbutton" iconCls="icon-add">add</s:a>
+	    </div>
+		<table class="table">
 			<thead>
 				<tr>
-					<td>ID</td>
-					<td>名称</td>
-					<td>描述</td>
+					<th>ID</th>
+					<th>名称</th>
+					<th>描述</th>
+					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,6 +40,5 @@
 			</tbody>
 		</table>
 	</div>
-
 </body>
 </html>

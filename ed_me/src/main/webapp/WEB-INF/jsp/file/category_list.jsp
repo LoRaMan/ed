@@ -33,14 +33,14 @@
 		        </div>
 		    </div>
 		</div>
-		<table id="categoryTable" class="easyui-datagrid" style="width:100%;height:480px" data-options="rownumbers:true,pagination:true">
+		<table id="categoryTable" class="easyui-datagrid" style="width:100%;height:370px" data-options="rownumbers:false,pagination:false">
 	        <thead>
 	            <tr>
 	            	<th data-options="field:'ck',checkbox:true"></th>
-	                <th data-options="field:'categoryId',width:100">ID</th>
-	                <th data-options="field:'categoryName',width:300">分类名称</th>
-	                <th data-options="field:'remarks',width:500">分类描述</th>
-	                <th data-options="field:'operation',width:200">操作</th>
+	                <th data-options="field:'categoryId',width:100,align:'center'">ID</th>
+	                <th data-options="field:'categoryName',width:200,align:'center'">分类名称</th>
+	                <th data-options="field:'remarks',width:500,align:'center'">分类描述</th>
+	                <th data-options="field:'operation',width:200,align:'center'">操作</th>
 	            </tr>
 	        </thead>
 	        <tbody>

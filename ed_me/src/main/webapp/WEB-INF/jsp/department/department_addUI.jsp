@@ -6,16 +6,34 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>department_editUI</title>
 	<%@ include file="/WEB-INF/jsp/public/repository.jspf" %>
+	<style>
+        h3{
+            font-family: 隶书;
+        }
+        label{
+            font-family: 楷体;
+        }
+    </style>
 </head>
 <body>
-	<h1>添加部门</h1>
-	<div>
-		<s:form action="departmentAction_save">
-			<s:textfield name="departmentName" lable="部门名称" cssClass="InputStyle"></s:textfield>
-			<s:textfield name="remarks" lable="部门描述" cssClass="TextareaStyle"></s:textfield>
-			<s:submit value="保存" />
-			<%-- <s:submit value="取消" name="redirect-action:departmentAction_list" /> --%>
-		</s:form>
-	</div>
+	<div class="container" style="width:60%;height:500px;border-style: ridge;margin-top: 3rem">
+        <h3>添加部门</h3>
+        <hr/>
+        <s:form action="departmentAction_save">
+        	<div style="margin-bottom:20px">
+                <label>部门名称:</label>
+                <s:textfield name="departmentName" class="easyui-textbox" style="width:100%" data-options="required:true"/>
+            </div>
+            <div style="margin-bottom:20px">
+                <label>部门描述:</label>
+                <s:textarea name="remarks" class="easyui-textbox" style="width:100%;height:60px" data-options="multiline:true"/>
+            </div>
+            <div div style="text-align:center; margin: auto">
+            	<s:submit value="保存" class="btn btn-success" style="width:80px"></s:submit>
+            	&nbsp;&nbsp;&nbsp;&nbsp;
+            	<s:reset value="重置" class="btn btn-warning" style="width:80px"></s:reset>
+            </div>
+        </s:form>
+    </div>
 </body>
 </html>

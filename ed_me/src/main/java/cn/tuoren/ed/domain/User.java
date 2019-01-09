@@ -14,19 +14,21 @@ import javax.persistence.Entity;
 @Entity
 public class User {
 	//与Department：多对1
-	//与Role：多对1
+	//与Role：多对多
 	//与Message：多对多
 	//与Menu：多对多
-	//与File：多对多
+	//与Project：多对多,一个项目多个成员，一个用户参与多个项目
+	//与File：1对多
 	//与BorrowRecord：1对多
 	
 	private Long userId;//用户索引
 	private Department department;//部门
-	private Role role;//
+	private Set<Role> roles=new HashSet<Role>();
 	private Set<Message> messages=new HashSet<Message>();
 	private Set<Menu> menus=new HashSet<Menu>();
 	private Set<EdFile> files=new HashSet<EdFile>();
 	private Set<BorrowRecord> records=new HashSet<BorrowRecord>();
+	private Set<Project> projects=new HashSet<Project>();
 	private String loginName;//登录名
 	private String password;//密码
 	private String employeeName;//雇员姓名
@@ -41,6 +43,14 @@ public class User {
 	private String delFlag;//删除标识
 	private String remarks;//备注
 	
+	
+	
+	public Set<Project> getProjects() {
+		return projects;
+	}
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
+	}
 	public Long getUserId() {
 		return userId;
 	}
@@ -53,11 +63,12 @@ public class User {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	public Role getRole() {
-		return role;
+	
+	public Set<Role> getRoles() {
+		return roles;
 	}
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	public Set<Message> getMessages() {
 		return messages;

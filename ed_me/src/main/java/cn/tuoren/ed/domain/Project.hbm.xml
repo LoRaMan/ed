@@ -13,14 +13,16 @@
 		<property name="remark"/>
 
 		<!-- 与File：一对多 -->
-		<set name="files" lazy="false" fetch="join">
+		<set name="files" lazy="false">
 	   		<key column="projectId"></key>
 	   		<one-to-many class="EdFile"></one-to-many>
 	 	</set>
+	 	
+	 	<!-- 与Project：多对多 -->
+	 	<set name="users" table="t_user_project" lazy="false">
+			<key column="projectId"></key>
+			<many-to-many class="User" column="userId"></many-to-many>
+		</set>
 	</class>
 </hibernate-mapping>
 
-<!-- 	private Long projectId;//项目索引
-	private Set<File> files=new HashSet<File>();
-	private String projectName;//项目名称
-	private String remark; -->

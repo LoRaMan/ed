@@ -16,7 +16,10 @@ import com.opensymphony.xwork2.ActionContext;
 
 import cn.tuoren.ed.base.BaseAction;
 import cn.tuoren.ed.base.IBaseAction;
+import cn.tuoren.ed.base.PageBean;
+import cn.tuoren.ed.config.Configuration;
 import cn.tuoren.ed.domain.Role;
+import cn.tuoren.ed.util.HqlHelper;
 import net.sf.json.JSONObject;
 
 
@@ -74,10 +77,23 @@ public class RoleAction extends BaseAction<Role> implements IBaseAction {
 
 	@Override
 	public String list() {
-		List<Role> roleList=roleService.getAll();
-		ActionContext.getContext().put("roles", roleList);
-		// TODO Auto-generated method stub
+		System.out.println("-------添加角色Start--------");
+		System.out.println("-------添加角色End--------");
 		return "list";
+	}
+
+	public String listTwo() {
+		System.out.println("-------添加角色Start--------");
+		String list=ServletActionContext.getRequest().getParameter("params");
+		JSONObject jsonObject1 = JSONObject.fromObject(list);
+		Configuration.pageSize=(int) jsonObject1.get("size") ;
+		HqlHelper hqlHelper=new HqlHelper(Role.class);
+		hqlHelper.addOrder("roleName", true);
+		PageBean pBean= hqlHelper.returnPageBean((int)jsonObject1.get("page"),roleService);
+		resultdata=JSON.toJSONString(pBean);
+		System.out.println(resultdata);
+		System.out.println("-------添加角色End--------");
+		return "listTwo";
 	}
 
 	@Override
@@ -101,7 +117,9 @@ public class RoleAction extends BaseAction<Role> implements IBaseAction {
 		try {
 			roleService.save(role);
 			ServletActionContext.getResponse().getWriter().println("1");
+			resultdata="1";
 		} catch (Exception e) {
+			resultdata="0";
 			e.printStackTrace();
 		}
 		System.out.println("-------添加角色End--------");
@@ -146,6 +164,12 @@ public class RoleAction extends BaseAction<Role> implements IBaseAction {
 	public String bianJiJueSe() {
 		System.out.println("-------编辑角色Start--------");
 		//doSomething
+		String roleName=ServletActionContext.getRequest().getParameter("params");
+		System.out.println(roleName);
+		JSONObject jsonObject1 = JSONObject.fromObject(roleName);
+		Role role = (Role) JSONObject.toBean(jsonObject1,Role.class);
+		System.out.println(jsonObject1);
+		System.out.println(role);
 		System.out.println("-------编辑角色End--------");
 		return "bianJiJueSe";
 	}

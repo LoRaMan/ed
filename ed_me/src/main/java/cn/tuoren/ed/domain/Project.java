@@ -13,10 +13,21 @@ import javax.persistence.Entity;
 @Entity
 public class Project {
 	//与File：1对多
+	//与User：多对多
 	private Long projectId;//项目索引
 	private Set<EdFile> files=new HashSet<EdFile>();
+	private Set<User> users=new HashSet<User>();
 	private String projectName;//项目名称
 	private String remark;
+	
+	
+	
+	public Set<User> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 	public Long getProjectId() {
 		return projectId;
 	}

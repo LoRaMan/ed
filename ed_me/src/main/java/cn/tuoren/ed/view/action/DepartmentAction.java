@@ -25,7 +25,6 @@ public class DepartmentAction extends BaseAction<Department> implements IBaseAct
 	@Override
 	public String save() {
 		departmentService.save(model);
-		System.out.println("保存成功.....");
 		return "toList";
 	}
 
@@ -38,7 +37,6 @@ public class DepartmentAction extends BaseAction<Department> implements IBaseAct
 	@Override
 	public String edit() {
 		departmentService.update(model);
-		System.out.println("修改成功.......");
 		return "toList";
 	}
 

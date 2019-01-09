@@ -13,9 +13,8 @@
 		<property name="fileName"/>
 		<property name="fileSize"/>
 		<property name="uploadTime"/>
-		<property name="uploader"/>
 		<property name="fileStatus"/>
-		<property name="secretLevel"/>
+		<property name="isProjectFile"/>
 		<property name="version"/>
 		<property name="path"/>
 
@@ -24,14 +23,11 @@
 		<!-- 与Approve类：1对1 -->
 		<one-to-one name="approve" class="Approve" cascade="all"></one-to-one>
 		<!-- 与Projcet类：多对1 -->
-		<many-to-one name="project" column="projectId" class="Project" lazy="false" fetch="join"></many-to-one>
+		<many-to-one name="project" column="projectId" class="Project" lazy="false"></many-to-one>
 		<!-- 与FileCategory类：多对1 -->
-		<many-to-one name="category" column="categoryId" class="FileCategory" lazy="false" fetch="join"></many-to-one>
-		<!-- 与User类：多对多 -->
-		<set name="users" table="t_user_file" lazy="false">
-			<key column="fileId"></key>
-			<many-to-many class="User" column="userId"></many-to-many>
-		</set>
+		<many-to-one name="category" column="categoryId" class="FileCategory" lazy="false"></many-to-one>
+		<!-- 与User类：多对1 -->
+		<many-to-one name="uploadUser" column="userId" class="User" lazy="false"></many-to-one>
 		
 	</class>
 
@@ -47,7 +43,7 @@
 	private Date uploadTime;//上传时间
 	private String uploader;//上传人
 	private String fileStatus;//文件状态
-	private String secretLevel;//保密级别
+	private String isProjectFile;//是否为项目文件
 	private String version;//文件版本
 	private String path;//存储路径 -->
 	

@@ -17,7 +17,25 @@
 	            height: 80%;
 	            margin-top: 3rem;
 	            border-style: ridge;
+	            position:relative;
 	
+	        }
+	        #form1Submit{
+	        	position: absolute;
+			    bottom: -60px;
+			    left: calc(50% - 35px);
+	        }
+	        #form2{
+	        	position: absolute;
+			    bottom: 2.2%;
+			    left: 18%;
+			    border: solid 1px #ccc;
+			    padding: 5px;
+    			border-radius: 5px;
+	        }
+	        #form2 input{
+	        	float:left;
+	        	
 	        }
 	    </style>
 	</head>
@@ -28,13 +46,14 @@
 		    <s:form action="fileAction_save" class="form-horizontal" role="form">
 		        <div class="form-group">
 		            <div class="row">
-		                <label class="col-md-2 control-label">文件名：</label>
+		                <label class="col-sm-2 control-label">文件名称：</label>
 		                <div class="col-sm-8">
-		                    <input id="fileName" type="text" class="form-control" required="required" name="fileName" value="">
-		                    <span id="nameCheck"></span>
+		                    <input type="text" class="form-control" required="required" name="fileName" value="">
 		                </div>
 		            </div>
 		        </div>
+		        
+		        
 		        <div class="form-group">
 		            <div class="row">
 		                <label class="col-sm-2 control-label">文件版本：</label>
@@ -75,22 +94,6 @@
 		        </div>
 		        <div class="form-group">
 		            <div class="row">
-		                <label class="col-sm-2 control-label">保密级别：</label>
-		                <div class="col-sm-8">
-		                    <input type="text" class="form-control" required="required" name="secretLevel" value="">
-		                </div>
-		            </div>
-		        </div>
-<!-- 		        <div class="form-group">
-		            <div class="row">
-		                <label class="col-sm-2 control-label">存储路径：</label>
-		                <div class="col-sm-8">
-		                    <input type="text" class="form-control" required="required" name="path" value="">
-		                </div>
-		            </div>
-		        </div> -->
-		        <div class="form-group">
-		            <div class="row">
 		                <label class="col-sm-2 control-label">文件状态：</label>
 		                <div class="col-sm-8">
 		                    <input type="text" class="form-control" required="required" name="fileStatus" value="">
@@ -102,7 +105,7 @@
 		            <div class="row">
 		                <label class="col-sm-2 control-label">文件描述：</label>
 		                <div class="col-sm-8">
-		                    <textarea name="remarks" rows="5" class="form-control" placeholder="请输入文件描述"></textarea>
+		                    <textarea name="remarks" rows="2" class="form-control" placeholder="请输入文件描述"></textarea>
 		                </div>
 		            </div>
 		        </div>
@@ -110,13 +113,10 @@
 		            <div class="row">
 		                <label class="col-sm-2 control-label">文件上传：</label>
 		                <div class="col-sm-8">
-		                    <span class="btn btn-success btn-sm">上传</span>
-		                    <input type="file" multiple="multiple"/>
 		                </div>
 		            </div>
 		        </div>
-		        <hr/>
-		        <div class="form-group">
+		        <div class="form-group" id="form1Submit">
 		            <div class="row">
 		                <label class="col-sm-5 control-label"></label>
 		                <div class="col-sm-5">
@@ -124,14 +124,50 @@
 		                </div>
 		            </div>
 		        </div>
+		        <s:hidden id="uploadedFilePath" name="path" value=""></s:hidden>
+		        <s:hidden id="fileSize" name="fileSize" value=""></s:hidden>
+		    </s:form>
+		    <s:form id="form2" action="uploadAction" method="post" enctype="multipart/form-data">
+		        <s:file name="upload" label="选择上传的文件" />
+		        <input id="form2Submit" type="button" value="上传">
+		        &nbsp;&nbsp;
+		        <s:a><span id="uploaded"></span></s:a>
 		    </s:form>
 		</div>
+		
 		<script type="text/javascript">
 			//错误提示信息
 		  	var msg=""+'${msg}';
 		  	if(msg!=""){
 		  		alert(msg);
 		  	}
+
+			//上传文件
+		  	$("#form2Submit").click(function(){
+		  			getFilePath();
+			  	});
+			
+		  	function getFilePath(){
+		  		var formData = new FormData($("#form2")[0]);
+				$.ajax({
+					url:'uploadAction.action',
+					type:"post",
+					data:formData,
+					processData: false,
+					contentType: false,
+					dataType:"json",
+					success:function(data){
+						var obj=$.parseJSON(data);
+						$("#uploaded").html(obj.json);
+						$("#uploadedFilePath").val(obj.json);
+						$("#fileSize").val(obj.fileSize);
+						alert(obj.msg);
+					},
+					error:function(){
+						alert("上传失败！");
+					}
+				});
+			}
 		</script>
 	</body>
 </html>

@@ -26,6 +26,10 @@ public class FileCategoryAction extends BaseAction<FileCategory> implements IBas
 
 	@Override
 	public String save() {
+		if (model.getCategoryName().isEmpty()) {
+			ActionContext.getContext().put("msg", "类别名称不能为空！");
+			return "input";
+		}
 		try {
 			fileCategoryService.save(model);
 			ActionContext.getContext().put("msg", "保存成功！");

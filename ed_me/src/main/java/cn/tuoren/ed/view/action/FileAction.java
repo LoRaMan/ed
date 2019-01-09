@@ -26,6 +26,8 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 	private static final long serialVersionUID = 1L;
 	private Long projectId;
 	private Long categoryId;
+	
+	
 	/**
 	 * 保存到数据库后转发到列表页面
 	 */
@@ -117,6 +119,14 @@ public class FileAction extends BaseAction<EdFile> implements IBaseAction {
 		//压入ValueStack
 		Struts2Util.push(file);
 		return "editUI";
+	}
+	
+	/**
+	 * 跳转到上传页面
+	 * @return
+	 */
+	public String uploadUI() {
+		return "uploadUI";
 	}
 	
 	/**
